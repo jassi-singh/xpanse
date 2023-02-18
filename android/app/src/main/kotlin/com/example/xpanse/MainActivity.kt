@@ -1,4 +1,4 @@
-package com.example.xpanse
+package com.xpanse.app
 
 import io.flutter.embedding.android.FlutterActivity
 
