@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:xpanse/core/widgets/app_button.dart';
 
 import '../../../authentication/presentation/bloc/authentication_bloc.dart';
 
@@ -10,7 +11,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
+        child: AppButton(
           onPressed: () {
             context.read<AuthenticationBloc>().add(LogoutEvent());
           },

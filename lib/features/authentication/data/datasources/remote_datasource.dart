@@ -21,7 +21,10 @@ abstract class AppwriteRemoteDataSource {
   /// Throws a [AppwriteException] for all error codes.
   Future<Session> login(LoginParams params);
 
-  Future<void> logout();
+  /// Calls the logout endpoint from appwrite account.
+  ///
+  /// Throws a [AppwriteException] for all error codes.
+  Future<bool> logout();
 }
 
 class AppwriteRemoteDataSourceImpl implements AppwriteRemoteDataSource {
@@ -31,46 +34,49 @@ class AppwriteRemoteDataSourceImpl implements AppwriteRemoteDataSource {
 
   @override
   Future<Account> signup(SignupParams params) async {
-    try {
-      Account user = await _account.create(
+    return _failureOrSuccess(
+      _account.create(
         userId: appwrite.ID.unique(),
         email: params.email,
         password: params.password,
         name: params.name,
-      );
-      log(user.toString());
-      return user;
-    } catch (_) {
-      rethrow;
-    }
+      ),
+    );
   }
 
   @override
   Future<Session> getCurrentSession() async {
-    try {
-      return await _account.getSession(sessionId: 'current');
-    } catch (_) {
-      rethrow;
-    }
+    return _failureOrSuccess<Session>(
+      _account.getSession(
+        sessionId: 'current',
+      ),
+    );
   }
 
   @override
   Future<Session> login(LoginParams params) {
-    try {
-      return _account.createEmailSession(
+    return _failureOrSuccess<Session>(
+      _account.createEmailSession(
         email: params.email,
         password: params.password,
-      );
+      ),
+    );
+  }
+
+  @override
+  Future<bool> logout() async {
+    try {
+      await _account.deleteSession(sessionId: 'current');
+      return true;
     } catch (_) {
       rethrow;
     }
   }
 
-  @override
-  Future<void> logout() async {
+  Future<T> _failureOrSuccess<T>(Future<T> f) async {
     try {
-      await _account.deleteSession(sessionId: 'current');
-    } catch (_) {
+      return await f;
+    } catch (e) {
       rethrow;
     }
   }

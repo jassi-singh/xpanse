@@ -1,7 +1,7 @@
 import 'package:appwrite/models.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:xpanse/features/authentication/domain/usecases/signup.dart';
 
+import '../usecases/signup.dart';
 import '../usecases/login.dart';
 
 abstract class AuthenticationRepo {

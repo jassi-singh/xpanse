@@ -81,20 +81,26 @@ class AuthenticationBloc
         emit(_unAuthState.copyWith(isLoading: true));
         final failureOrUser = await _signupUsecase(event.params);
 
-        failureOrUser.fold(
+        await failureOrUser.fold(
           (failure) {
-            BuildContext context = _appHelper.navigatorKey.currentContext!;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(failure is AppwriteException
-                    ? failure.message.toString()
-                    : failure.toString()),
-              ),
+            _appHelper.showSnackBar(
+              failure is AppwriteException
+                  ? failure.message.toString()
+                  : failure.toString(),
             );
             emit(_unAuthState.copyWith(isLoading: false));
           },
-          (user) {
-            log('user : ${user.toMap()}');
+          (user) async {
+            _appHelper.showSnackBar('Account created successfully');
+            await _login(
+              LoginEvent(
+                LoginParams(
+                  email: event.params.email,
+                  password: event.params.password,
+                ),
+              ),
+              emit,
+            );
           },
         );
       }
@@ -111,41 +117,34 @@ class AuthenticationBloc
       LoginEvent event, Emitter<AuthenticationState> emit) async {
     if (state is UnauthorizedState) {
       final _unAuthState = state as UnauthorizedState;
-      if (_unAuthState.type == UnauthorizedType.login) {
-        emit(_unAuthState.copyWith(isLoading: true));
-        final failureOrSession = await _loginUsecase(event.params);
-        failureOrSession.fold(
-          (failure) {
-            BuildContext context = _appHelper.navigatorKey.currentContext!;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(failure is AppwriteException
-                    ? failure.message.toString()
-                    : failure.toString()),
-              ),
-            );
-            emit(_unAuthState.copyWith(isLoading: false));
-          },
-          (session) {
-            emit(AuthorizedState(session: session));
-            _navigate(true);
-          },
-        );
-      }
+      emit(_unAuthState.copyWith(isLoading: true));
+      final failureOrSession = await _loginUsecase(event.params);
+      failureOrSession.fold(
+        (failure) {
+          _appHelper.showSnackBar(
+            failure is AppwriteException
+                ? failure.message.toString()
+                : failure.toString(),
+          );
+          emit(_unAuthState.copyWith(isLoading: false));
+        },
+        (session) {
+          emit(AuthorizedState(session: session));
+          _navigate(true);
+        },
+      );
     }
   }
 
-  Future<FutureOr<void>> _logout(LogoutEvent event, Emitter<AuthenticationState> emit) async {
+  Future<FutureOr<void>> _logout(
+      LogoutEvent event, Emitter<AuthenticationState> emit) async {
     final failureOrSuccess = await _logoutUsecase(NoParams());
     failureOrSuccess.fold(
       (failure) {
-        BuildContext context = _appHelper.navigatorKey.currentContext!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(failure is AppwriteException
-                ? failure.message.toString()
-                : failure.toString()),
-          ),
+        _appHelper.showSnackBar(
+          failure is AppwriteException
+              ? failure.message.toString()
+              : failure.toString(),
         );
       },
       (success) {

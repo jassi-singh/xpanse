@@ -13,45 +13,28 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
   AuthenticationRepoImpl(this._remoteDataSource);
   @override
   Future<Either<Exception, Account>> signup(SignupParams params) async {
-    try {
-      final user = await _remoteDataSource.signup(params);
-      return Right(user);
-    } on appwrite.AppwriteException catch (e) {
-      return Left(e);
-    } catch (e) {
-      return Left(Exception(e));
-    }
+    return await _failureOrSuccess<Account>(_remoteDataSource.signup(params));
   }
 
   @override
   Future<Either<Exception, Session>> getCurrentSession() async {
-    try {
-      final session = await _remoteDataSource.getCurrentSession();
-      return Right(session);
-    } on appwrite.AppwriteException catch (e) {
-      return Left(e);
-    } catch (e) {
-      return Left(Exception(e));
-    }
+    return await _failureOrSuccess<Session>(
+        _remoteDataSource.getCurrentSession());
   }
 
   @override
   Future<Either<Exception, Session>> login(LoginParams params) async {
-    try {
-      final session = await _remoteDataSource.login(params);
-      return Right(session);
-    } on appwrite.AppwriteException catch (e) {
-      return Left(e);
-    } catch (e) {
-      return Left(Exception(e));
-    }
+    return await _failureOrSuccess<Session>(_remoteDataSource.login(params));
   }
-  
+
   @override
   Future<Either<Exception, bool>> logout() async {
+    return await _failureOrSuccess<bool>(_remoteDataSource.logout());
+  }
+
+  Future<Either<Exception, T>> _failureOrSuccess<T>(Future<T> f) async {
     try {
-       await _remoteDataSource.logout();
-      return const Right(true);
+      return Right(await f);
     } on appwrite.AppwriteException catch (e) {
       return Left(e);
     } catch (e) {
