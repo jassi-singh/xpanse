@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xpanse/core/constants/colors.dart';
 import 'package:xpanse/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:xpanse/features/transactions/presentation/bloc/transactions_bloc.dart';
 import 'core/util/bloc_observer.dart';
 import 'core/util/helpers.dart';
 import 'features/authentication/presentation/pages/splash.dart';
@@ -26,10 +27,13 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (_) => sl<AuthenticationBloc>(),
           ),
+          BlocProvider(
+            create: (_) => sl<TransactionsBloc>(),
+          ),
         ],
         child: MaterialApp(
           title: 'Xpanse App',
-          navigatorKey: sl<AppHelper>().navigatorKey,
+          navigatorKey: AppHelper.navigatorKey,
           theme: ThemeData(
             primarySwatch: Colors.indigo,
             brightness: Brightness.dark,

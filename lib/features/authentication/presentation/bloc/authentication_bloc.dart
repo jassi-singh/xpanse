@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:bloc/bloc.dart';
@@ -11,8 +9,7 @@ import 'package:xpanse/core/util/helpers.dart';
 import 'package:xpanse/features/authentication/domain/usecases/get_current_session.dart';
 import 'package:xpanse/features/authentication/domain/usecases/signup.dart';
 import 'package:xpanse/features/authentication/presentation/pages/auth_screen.dart';
-import 'package:xpanse/features/transactions/presentation/pages/dashboard.dart';
-
+import '../../../transactions/presentation/pages/dashboard.dart';
 import '../../domain/usecases/login.dart';
 import '../../domain/usecases/logout.dart';
 
@@ -25,10 +22,8 @@ class AuthenticationBloc
   final Signup _signupUsecase;
   final Login _loginUsecase;
   final Logout _logoutUsecase;
-  final AppHelper _appHelper;
   AuthenticationBloc(
     this._getCurrentSession,
-    this._appHelper,
     this._signupUsecase,
     this._loginUsecase,
     this._logoutUsecase,
@@ -83,7 +78,7 @@ class AuthenticationBloc
 
         await failureOrUser.fold(
           (failure) {
-            _appHelper.showSnackBar(
+            AppHelper.showSnackBar(
               failure is AppwriteException
                   ? failure.message.toString()
                   : failure.toString(),
@@ -91,7 +86,7 @@ class AuthenticationBloc
             emit(_unAuthState.copyWith(isLoading: false));
           },
           (user) async {
-            _appHelper.showSnackBar('Account created successfully');
+            AppHelper.showSnackBar('Account created successfully');
             await _login(
               LoginEvent(
                 LoginParams(
@@ -121,7 +116,7 @@ class AuthenticationBloc
       final failureOrSession = await _loginUsecase(event.params);
       failureOrSession.fold(
         (failure) {
-          _appHelper.showSnackBar(
+          AppHelper.showSnackBar(
             failure is AppwriteException
                 ? failure.message.toString()
                 : failure.toString(),
@@ -141,7 +136,7 @@ class AuthenticationBloc
     final failureOrSuccess = await _logoutUsecase(NoParams());
     failureOrSuccess.fold(
       (failure) {
-        _appHelper.showSnackBar(
+        AppHelper.showSnackBar(
           failure is AppwriteException
               ? failure.message.toString()
               : failure.toString(),
@@ -156,7 +151,7 @@ class AuthenticationBloc
 
   Future<dynamic> _navigate(bool success) {
     return Navigator.pushAndRemoveUntil(
-      _appHelper.navigatorKey.currentContext!,
+      AppHelper.navigatorKey.currentContext!,
       MaterialPageRoute(
           builder: (context) =>
               success ? const Dashboard() : const AuthScreen()),

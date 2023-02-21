@@ -5,6 +5,8 @@ import 'package:appwrite/models.dart';
 import 'package:xpanse/features/authentication/domain/usecases/login.dart';
 import 'package:xpanse/features/authentication/domain/usecases/signup.dart';
 
+import '../../../../core/util/helpers.dart';
+
 abstract class AppwriteRemoteDataSource {
   /// Calls the create account endpoint from appwrite account.
   ///
@@ -34,7 +36,7 @@ class AppwriteRemoteDataSourceImpl implements AppwriteRemoteDataSource {
 
   @override
   Future<Account> signup(SignupParams params) async {
-    return _failureOrSuccess(
+    return AppHelper.exceptionCatcher(
       _account.create(
         userId: appwrite.ID.unique(),
         email: params.email,
@@ -46,7 +48,7 @@ class AppwriteRemoteDataSourceImpl implements AppwriteRemoteDataSource {
 
   @override
   Future<Session> getCurrentSession() async {
-    return _failureOrSuccess<Session>(
+    return AppHelper.exceptionCatcher<Session>(
       _account.getSession(
         sessionId: 'current',
       ),
@@ -55,7 +57,7 @@ class AppwriteRemoteDataSourceImpl implements AppwriteRemoteDataSource {
 
   @override
   Future<Session> login(LoginParams params) {
-    return _failureOrSuccess<Session>(
+    return AppHelper.exceptionCatcher<Session>(
       _account.createEmailSession(
         email: params.email,
         password: params.password,
@@ -69,14 +71,6 @@ class AppwriteRemoteDataSourceImpl implements AppwriteRemoteDataSource {
       await _account.deleteSession(sessionId: 'current');
       return true;
     } catch (_) {
-      rethrow;
-    }
-  }
-
-  Future<T> _failureOrSuccess<T>(Future<T> f) async {
-    try {
-      return await f;
-    } catch (e) {
       rethrow;
     }
   }
