@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:appwrite/appwrite.dart' as appwrite;
 import 'package:appwrite/models.dart';
 import 'package:xpanse/features/authentication/domain/usecases/login.dart';

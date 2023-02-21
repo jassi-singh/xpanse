@@ -1,4 +1,3 @@
-import 'package:appwrite/appwrite.dart' as appwrite;
 import 'package:appwrite/models.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:xpanse/core/util/helpers.dart';

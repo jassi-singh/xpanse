@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:xpanse/core/constants/colors.dart';
 import 'package:xpanse/core/widgets/app_button.dart';
 import 'package:xpanse/features/authentication/domain/usecases/signup.dart';
 

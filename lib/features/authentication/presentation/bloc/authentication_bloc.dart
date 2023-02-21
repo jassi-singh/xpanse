@@ -9,7 +9,7 @@ import 'package:xpanse/core/util/helpers.dart';
 import 'package:xpanse/features/authentication/domain/usecases/get_current_session.dart';
 import 'package:xpanse/features/authentication/domain/usecases/signup.dart';
 import 'package:xpanse/features/authentication/presentation/pages/auth_screen.dart';
-import '../../../transactions/presentation/pages/dashboard.dart';
+import 'package:xpanse/home/home.dart';
 import '../../domain/usecases/login.dart';
 import '../../domain/usecases/logout.dart';
 
@@ -154,7 +154,7 @@ class AuthenticationBloc
       AppHelper.navigatorKey.currentContext!,
       MaterialPageRoute(
           builder: (context) =>
-              success ? const Dashboard() : const AuthScreen()),
+              success ? const HomeScreen() : const AuthScreen()),
       (route) => false,
     );
   }
