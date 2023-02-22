@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:xpense/core/extensions/string_extensions.dart';
 import 'package:xpense/features/transactions/domain/entities/enums.dart';
+import 'package:xpense/features/transactions/presentation/pages/add_update_transaction.dart';
 
 import '../../../domain/entities/transaction.dart';
-
 
 class TransactionListItem extends StatelessWidget {
   final Transaction transaction;
@@ -15,6 +15,14 @@ class TransactionListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AddUpdateTransaction(
+            transaction: transaction,
+          ),
+        ),
+      ),
       title: Text(transaction.title),
       subtitle: Text(transaction.category.name.capitalize),
       leading: Container(
@@ -31,7 +39,7 @@ class TransactionListItem extends StatelessWidget {
         ),
       ),
       trailing: Text(
-        '- ₹20',
+        '${transaction.type.operation} ₹${transaction.amount.toStringAsFixed(2)}',
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
               color: transaction.type.color,
             ),
@@ -39,5 +47,3 @@ class TransactionListItem extends StatelessWidget {
     );
   }
 }
-
-

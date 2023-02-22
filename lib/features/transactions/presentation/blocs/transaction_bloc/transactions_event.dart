@@ -17,16 +17,6 @@ class GetTransactionsOfMonthEvent extends TransactionsEvent {
   List<Object> get props => [month, year];
 }
 
-class AddOrUpdateTransactionEvent extends TransactionsEvent {
-  final Transaction transaction;
-  const AddOrUpdateTransactionEvent({
-    required this.transaction,
-  });
-
-  @override
-  List<Object> get props => [transaction];
-}
-
 class DeleteTransactionEvent extends TransactionsEvent {
   final String id;
 

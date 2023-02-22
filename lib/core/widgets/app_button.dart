@@ -7,6 +7,7 @@ class AppButton extends StatelessWidget {
   final Widget child;
   final ShapeBorder shape;
   final Color? backgroundColor;
+  final Gradient? gradient;
 
   const AppButton({
     Key? key,
@@ -14,6 +15,7 @@ class AppButton extends StatelessWidget {
     required this.child,
     this.shape = const StadiumBorder(),
     this.backgroundColor,
+    this.gradient,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,9 @@ class AppButton extends StatelessWidget {
     return DecoratedBox(
       decoration: ShapeDecoration(
         shape: shape,
-        gradient: backgroundColor != null ? null : AppColors.primaryGradient,
+        gradient: backgroundColor != null
+            ? null
+            : gradient ?? AppColors.primaryGradient,
         color: backgroundColor,
       ),
       child: MaterialButton(

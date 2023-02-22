@@ -4,6 +4,7 @@ import 'package:xpense/core/constants/colors.dart';
 import 'package:xpense/core/widgets/app_button.dart';
 import 'package:xpense/features/transactions/presentation/pages/dashboard.dart';
 
+import '../features/transactions/presentation/pages/add_update_transaction.dart';
 import 'cubit/home_cubit.dart';
 import 'widgets/app_bottom_navigation_bar.dart';
 
@@ -17,7 +18,12 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: AppButton(
-          onPressed: () {},
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddUpdateTransaction(),
+            ),
+          ),
           shape: const CircleBorder(),
           backgroundColor: Colors.white,
           child: const Icon(

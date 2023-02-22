@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/transactions_bloc.dart';
+import '../../blocs/add_update_cubit/add_update_cubit.dart';
+import '../../blocs/transaction_bloc/transactions_bloc.dart';
 import '../month_selector/cubit/month_selector_cubit.dart';
 import 'transaction_list_item.dart';
 
@@ -19,13 +20,25 @@ class TransactionsList extends StatelessWidget {
             width: 0.5,
           ),
         ),
-        child: BlocSelector<MonthSelectorCubit, MonthSelectorState,
-            MonthSelectorState>(
-          selector: (state) => state,
-          builder: (context, state) {
-            return BlocBuilder<TransactionsBloc, TransactionsState>(
+        child: BlocListener<AddUpdateCubit, AddUpdateState>(
+          listener: (context, state) {
+            if (state.status == AddUpdateStatus.success) {
+              context.read<TransactionsBloc>().add(GetTransactionsOfMonthEvent(
+                  context.read<MonthSelectorCubit>().state.month,
+                  context.read<MonthSelectorCubit>().state.year));
+            }
+          },
+          child: BlocListener<MonthSelectorCubit, MonthSelectorState>(
+            listener: (context, state) {
+              context
+                  .read<TransactionsBloc>()
+                  .add(GetTransactionsOfMonthEvent(state.month, state.year));
+            },
+            child: BlocBuilder<TransactionsBloc, TransactionsState>(
               bloc: context.read<TransactionsBloc>()
-                ..add(GetTransactionsOfMonthEvent(state.month, state.year)),
+                ..add(GetTransactionsOfMonthEvent(
+                    context.read<MonthSelectorCubit>().state.month,
+                    context.read<MonthSelectorCubit>().state.year)),
               builder: (context, state) {
                 if (state is TransactionsLoading) {
                   return const Center(
@@ -48,8 +61,8 @@ class TransactionsList extends StatelessWidget {
                   );
                 }
               },
-            );
-          },
+            ),
+          ),
         ),
       ),
     );

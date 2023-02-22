@@ -40,7 +40,7 @@ class Transaction extends Equatable {
       '\$id': id,
       'userId': userId,
       'title': title,
-      'amount': amount,
+      'amount': amount.toString(),
       'date': date.toIso8601String(),
       'category': category.name,
       'type': type.name,

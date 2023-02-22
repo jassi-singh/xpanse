@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../injection_container.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/authentication_bloc.dart';
 import '../../../../core/widgets/app_logo.dart';
 
@@ -8,7 +8,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    sl<AuthenticationBloc>().add(CheckAuthorizationEvent());
+    context.read<AuthenticationBloc>().add(CheckAuthorizationEvent());
     return Scaffold(
         body: Center(
       child: Column(

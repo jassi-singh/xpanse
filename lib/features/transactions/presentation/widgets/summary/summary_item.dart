@@ -21,7 +21,7 @@ class SummaryItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: Text(
-            '${type.operation} ₹$amount',
+            '${type.operation} ₹${amount.toStringAsFixed(2)}',
             style: Theme.of(context)
                 .textTheme
                 .titleLarge!

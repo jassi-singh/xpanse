@@ -47,7 +47,7 @@ extension TransactionTypeExtension on TransactionType {
   String get operation {
     switch (this) {
       case TransactionType.income:
-        return '';
+        return '+';
       case TransactionType.expense:
         return '-';
     }

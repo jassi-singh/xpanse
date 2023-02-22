@@ -18,7 +18,8 @@ import 'features/authentication/data/datasources/remote_datasource.dart';
 import 'features/authentication/data/repositories/authentication_repo_impl.dart';
 import 'features/authentication/domain/usecases/login.dart';
 import 'features/authentication/domain/usecases/signup.dart';
-import 'features/transactions/presentation/bloc/transactions_bloc.dart';
+import 'features/transactions/presentation/blocs/add_update_cubit/add_update_cubit.dart';
+import 'features/transactions/presentation/blocs/transaction_bloc/transactions_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -49,7 +50,8 @@ Future<void> init() async {
 
   //* Features - Transactions
   // Bloc or Cubit
-  sl.registerFactory(() => TransactionsBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => TransactionsBloc(sl()));
+  sl.registerFactory(() => AddUpdateCubit(sl(), sl(), sl()));
   sl.registerFactory(() => MonthSelectorCubit());
 
   // Use cases

@@ -13,12 +13,12 @@ class AppColors {
     ],
   );
 
-  static LinearGradient blackTransparentGradient = const LinearGradient(
+  static LinearGradient dangerGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [
-      primaryColor,
-      primaryColor,
+      Colors.redAccent[100]!,
+      Colors.redAccent,
     ],
   );
 

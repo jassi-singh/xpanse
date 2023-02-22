@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/enums.dart';
+import '../../blocs/transaction_bloc/transactions_bloc.dart';
 import 'summary_item.dart';
 
 class SummaryBox extends StatelessWidget {
@@ -18,18 +20,58 @@ class SummaryBox extends StatelessWidget {
           width: 0.5,
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
-          SummaryItem(
-            type: TransactionType.expense,
-            amount: 2000,
-          ),
-          SummaryItem(
-            type: TransactionType.income,
-            amount: 40000,
-          ),
-        ],
+      child: BlocBuilder<TransactionsBloc, TransactionsState>(
+        buildWhen: (previous, current) {
+          if (current is TransactionsLoaded) {
+            return true;
+          }
+          return false;
+        },
+        builder: (context, state) {
+          if (state is TransactionsLoaded) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.wallet),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Text(
+                        '₹${(state.income - state.expense).toStringAsFixed(2)}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
+                    const Text("Balance"),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SummaryItem(
+                      type: TransactionType.expense,
+                      amount: state.expense,
+                    ),
+                    SummaryItem(
+                      type: TransactionType.income,
+                      amount: state.income,
+                    ),
+                  ],
+                ),
+              ],
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        },
       ),
     );
   }
