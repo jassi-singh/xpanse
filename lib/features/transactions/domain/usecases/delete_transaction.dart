@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:xpanse/core/usecase/usecase.dart';
+import 'package:xpense/core/usecase/usecase.dart';
 import '../repositories/transaction_repo.dart';
 
 class DeleteTransaction extends UseCase<void, String> {

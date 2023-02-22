@@ -1,17 +1,18 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:get_it/get_it.dart';
-import 'package:xpanse/core/constants/constants.dart';
-import 'package:xpanse/features/authentication/domain/repositories/authentication_repo.dart';
-import 'package:xpanse/features/authentication/domain/usecases/get_current_session.dart';
-import 'package:xpanse/features/authentication/domain/usecases/logout.dart';
-import 'package:xpanse/features/authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:xpanse/features/transactions/data/datasources/transaction_remote_datasource.dart';
-import 'package:xpanse/features/transactions/data/repositories/transaction_repo_impl.dart';
-import 'package:xpanse/features/transactions/domain/repositories/transaction_repo.dart';
-import 'package:xpanse/features/transactions/domain/usecases/add_transaction.dart';
-import 'package:xpanse/features/transactions/domain/usecases/delete_transaction.dart';
-import 'package:xpanse/features/transactions/domain/usecases/get_transaction_of_month.dart';
-import 'package:xpanse/features/transactions/domain/usecases/update_transaction.dart';
+import 'package:xpense/core/constants/constants.dart';
+import 'package:xpense/features/authentication/domain/repositories/authentication_repo.dart';
+import 'package:xpense/features/authentication/domain/usecases/get_current_session.dart';
+import 'package:xpense/features/authentication/domain/usecases/logout.dart';
+import 'package:xpense/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:xpense/features/transactions/data/datasources/transaction_remote_datasource.dart';
+import 'package:xpense/features/transactions/data/repositories/transaction_repo_impl.dart';
+import 'package:xpense/features/transactions/domain/repositories/transaction_repo.dart';
+import 'package:xpense/features/transactions/domain/usecases/add_transaction.dart';
+import 'package:xpense/features/transactions/domain/usecases/delete_transaction.dart';
+import 'package:xpense/features/transactions/domain/usecases/get_transaction_of_month.dart';
+import 'package:xpense/features/transactions/domain/usecases/update_transaction.dart';
+import 'package:xpense/features/transactions/presentation/widgets/month_selector/cubit/month_selector_cubit.dart';
 
 import 'features/authentication/data/datasources/remote_datasource.dart';
 import 'features/authentication/data/repositories/authentication_repo_impl.dart';
@@ -47,8 +48,9 @@ Future<void> init() async {
       () => AppwriteRemoteDataSourceImpl(sl()));
 
   //* Features - Transactions
-  // Bloc
+  // Bloc or Cubit
   sl.registerFactory(() => TransactionsBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => MonthSelectorCubit());
 
   // Use cases
   sl.registerLazySingleton(() => GetTransactionsBetweenTwoDates(sl()));

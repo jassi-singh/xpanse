@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../injection_container.dart';
 import '../bloc/authentication_bloc.dart';
-import '../widgets/app_logo.dart';
+import '../../../../core/widgets/app_logo.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,12 +14,12 @@ class SplashScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: const [
-          AppLogo(size: 140.0),
+          AppLogo(),
           SizedBox(
             height: 20.0,
           ),
           Text(
-            'Xpanse',
+            'Xpense',
             style: TextStyle(
               fontSize: 44.0,
               fontWeight: FontWeight.bold,

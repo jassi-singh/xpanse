@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xpanse/core/constants/colors.dart';
-import 'package:xpanse/core/widgets/app_button.dart';
-import 'package:xpanse/features/transactions/presentation/pages/dashboard.dart';
+import 'package:xpense/core/constants/colors.dart';
+import 'package:xpense/core/widgets/app_button.dart';
+import 'package:xpense/features/transactions/presentation/pages/dashboard.dart';
 
 import 'cubit/home_cubit.dart';
 import 'widgets/app_bottom_navigation_bar.dart';

@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:xpanse/core/util/helpers.dart';
-import 'package:xpanse/features/transactions/domain/entities/transaction.dart';
-import 'package:xpanse/features/transactions/domain/repositories/transaction_repo.dart';
+import 'package:xpense/core/util/helpers.dart';
+import 'package:xpense/features/transactions/domain/entities/transaction.dart';
+import 'package:xpense/features/transactions/domain/repositories/transaction_repo.dart';
 
 import '../datasources/transaction_remote_datasource.dart';
 

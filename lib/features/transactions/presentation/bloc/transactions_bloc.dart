@@ -5,7 +5,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:xpanse/features/transactions/domain/usecases/add_transaction.dart';
+import 'package:xpense/features/transactions/domain/usecases/add_transaction.dart';
 
 import '../../../../core/util/helpers.dart';
 import '../../domain/entities/transaction.dart';
@@ -36,8 +36,10 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   Future<FutureOr<void>> _getTransactionsOfMonthEvent(
       GetTransactionsOfMonthEvent event,
       Emitter<TransactionsState> emit) async {
+    emit(TransactionsLoading());
     final DateTime startDate = DateTime(event.year, event.month);
     final DateTime endDate = DateTime(event.year, event.month + 1);
+    await Future.delayed(const Duration(seconds: 2));
     final res = await _getTransactionsBetweenTwoDates(
       TransactionOfMonthParams(startDate, endDate),
     );
@@ -52,6 +54,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       for (var element in transactionList) {
         log(element.toJson().toString());
       }
+      emit(TransactionsLoaded(transactionList));
     });
   }
 

@@ -26,12 +26,12 @@ class Transaction extends Equatable {
       id: json['\$id'],
       userId: json['userId'],
       title: json['title'],
-      amount: json['amount'] * 1.0,
+      amount: double.parse(json['amount'].toString()),
       date: DateTime.parse(json['date']),
-      type: TransactionType.values.firstWhere(
-          (element) => element.toString().split('.').last == json['type']),
-      category: CategoryEnum.values.firstWhere(
-          (element) => element.toString().split('.').last == json['category']),
+      type: TransactionType.values
+          .firstWhere((element) => element.name == json['type']),
+      category: CategoryEnum.values
+          .firstWhere((element) => element.name == json['category']),
     );
   }
 
@@ -42,8 +42,8 @@ class Transaction extends Equatable {
       'title': title,
       'amount': amount,
       'date': date.toIso8601String(),
-      'category': category.toString().split('.').last,
-      'type': type.toString().split('.').last,
+      'category': category.name,
+      'type': type.name,
     };
   }
 

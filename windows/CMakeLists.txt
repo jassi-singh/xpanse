@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(xpanse LANGUAGES CXX)
+project(xpense LANGUAGES CXX)
 
-set(BINARY_NAME "xpanse")
+set(BINARY_NAME "xpense")
 
 cmake_policy(SET CMP0063 NEW)
 

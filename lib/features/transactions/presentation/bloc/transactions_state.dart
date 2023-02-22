@@ -7,3 +7,14 @@ abstract class TransactionsState extends Equatable {
   List<Object> get props => [];
 }
 class TransactionsInitial extends TransactionsState {}
+
+class TransactionsLoading extends TransactionsState {}
+
+class TransactionsLoaded extends TransactionsState {
+  final List<Transaction> transactions;
+
+  const TransactionsLoaded(this.transactions);
+
+  @override
+  List<Object> get props => [transactions];
+}

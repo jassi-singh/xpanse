@@ -4,12 +4,12 @@ import 'package:appwrite/models.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:xpanse/core/usecase/usecase.dart';
-import 'package:xpanse/core/util/helpers.dart';
-import 'package:xpanse/features/authentication/domain/usecases/get_current_session.dart';
-import 'package:xpanse/features/authentication/domain/usecases/signup.dart';
-import 'package:xpanse/features/authentication/presentation/pages/auth_screen.dart';
-import 'package:xpanse/home/home.dart';
+import 'package:xpense/core/usecase/usecase.dart';
+import 'package:xpense/core/util/helpers.dart';
+import 'package:xpense/features/authentication/domain/usecases/get_current_session.dart';
+import 'package:xpense/features/authentication/domain/usecases/signup.dart';
+import 'package:xpense/features/authentication/presentation/pages/auth_screen.dart';
+import 'package:xpense/home/home.dart';
 import '../../domain/usecases/login.dart';
 import '../../domain/usecases/logout.dart';
 

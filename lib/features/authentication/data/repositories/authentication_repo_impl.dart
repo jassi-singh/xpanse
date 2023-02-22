@@ -1,9 +1,9 @@
 import 'package:appwrite/models.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:xpanse/core/util/helpers.dart';
-import 'package:xpanse/features/authentication/domain/repositories/authentication_repo.dart';
-import 'package:xpanse/features/authentication/domain/usecases/login.dart';
-import 'package:xpanse/features/authentication/domain/usecases/signup.dart';
+import 'package:xpense/core/util/helpers.dart';
+import 'package:xpense/features/authentication/domain/repositories/authentication_repo.dart';
+import 'package:xpense/features/authentication/domain/usecases/login.dart';
+import 'package:xpense/features/authentication/domain/usecases/signup.dart';
 
 import '../datasources/remote_datasource.dart';
 

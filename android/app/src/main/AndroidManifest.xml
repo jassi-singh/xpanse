@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xpanse.app">
+    package="com.xpense.app">
    <application
-        android:label="xpanse"
+        android:label="xpense"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity android:name="com.linusu.flutter_web_auth_2.CallbackActivity" android:exported="true">

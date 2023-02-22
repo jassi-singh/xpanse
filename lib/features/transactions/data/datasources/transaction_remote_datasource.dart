@@ -1,8 +1,8 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:xpanse/core/constants/constants.dart';
+import 'package:xpense/core/constants/constants.dart';
 
-import 'package:xpanse/core/util/helpers.dart';
+import 'package:xpense/core/util/helpers.dart';
 
 abstract class TransactionRemoteDataSource {
   /// Get the list of transactions for a given month and year.

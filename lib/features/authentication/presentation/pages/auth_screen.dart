@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xpanse/features/authentication/presentation/widgets/app_logo.dart';
+import 'package:xpense/core/widgets/app_logo.dart';
 
 import '../widgets/auth_form.dart';
 import '../widgets/bottom_text.dart';
@@ -18,9 +18,12 @@ class AuthScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(48.0),
-                  child: AppLogo(size: 80),
+                Padding(
+                  padding: const EdgeInsets.all(48.0),
+                  child: Transform.scale(
+                    scale: 0.8,
+                    child: const AppLogo(),
+                  ),
                 ),
                 AuthForm(),
                 const SizedBox(

@@ -1,4 +1,4 @@
-package com.xpanse.app
+package com.xpense.app
 
 import io.flutter.embedding.android.FlutterActivity
 

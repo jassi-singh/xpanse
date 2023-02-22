@@ -1,7 +1,7 @@
 import 'package:appwrite/appwrite.dart' as appwrite;
 import 'package:appwrite/models.dart';
-import 'package:xpanse/features/authentication/domain/usecases/login.dart';
-import 'package:xpanse/features/authentication/domain/usecases/signup.dart';
+import 'package:xpense/features/authentication/domain/usecases/login.dart';
+import 'package:xpense/features/authentication/domain/usecases/signup.dart';
 
 import '../../../../core/util/helpers.dart';
 
